@@ -31,5 +31,16 @@ namespace DataAccess.Concrate
 
             return result;
         }
+
+        public List<asfsafsaf> ProductByCategory()
+        {
+            var result = Db.Products.GroupBy(x => x.Category.CategoryName).Select(z => new asfsafsaf()
+            {
+                CategoryName = z.Key,
+                UrunAdet = z.Sum(x => x.UnitsInStock)
+            }).ToList();
+
+            return result;
+        }
     }
 }

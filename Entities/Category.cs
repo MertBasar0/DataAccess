@@ -11,5 +11,7 @@ namespace Entities
         public int CategoryID { get; set; }
 
         public string CategoryName { get; set; }
+
+        public virtual List<Product> Products { get; set; }
     }
 }

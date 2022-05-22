@@ -50,18 +50,50 @@ namespace UIOne
 
             //Çalýþanlarýn adýný soyadýný, doðum tarihlerini ve yaþýný getiren bir sorgu yazýnýz.
 
-            var results = (from x in db.Employees
-                          select new
-                          {
-                              AdiSoyadi = x.FirstName + " " + x.LastName,
-                              DogumTarihi = x.BirthDate,
-                              Yasi = ((DateTime.Now - x.BirthDate).Days)/365
-                          });
-            foreach (var item in results)
-            {
-                dtl_DataListesi.Items.Add(item.AdiSoyadi + "     " + item.DogumTarihi + "     " + item.Yasi);
+            //var results = (from x in db.Employees
+            //              select new
+            //              {
+            //                  AdiSoyadi = x.FirstName + " " + x.LastName,
+            //                  DogumTarihi = x.BirthDate,
+            //                  Yasi = ((DateTime.Now - x.BirthDate).Days)/365
+            //              });
+            //foreach (var item in results)
+            //{
+            //    dtl_DataListesi.Items.Add(item.AdiSoyadi + "     " + item.DogumTarihi + "     " + item.Yasi);
 
+            //}
+
+            //Kategorilerine göre stoktaki ürün adedini getiren sorguyu yazýnýz.
+            
+            /*
+             Aþaðýda Navigation proplar kullanýlmadýðý için join ile KatAdi ve her ürün için UrunAdet sýralanabildi.
+             */
+
+            //var results = (from x in db.Products
+            //               join y in db.Categories
+            //               on x.CategoryID equals y.CategoryID
+            //              select new
+            //              {
+            //                  ProductName = x.ProductName,
+            //                  CategoryName = y.CategoryName,
+            //                  UnitsInStock = Convert.ToInt32(x.UnitsInStock)
+            //              }).ToList();
+
+            //foreach (var item in results)
+            //{
+            //    dtl_DataListesi.Items.Add(item.ProductName + " ---- " + item.CategoryName.ToLowerInvariant()+ " ---- " + item.UnitsInStock);
+            //}
+
+            /*
+             Burada Navigation Proplar kullanýlarak link to entities ile istenilen sorgu yazýlabildi.
+             */
+
+            foreach (var product in productDetailDal.ProductByCategory())
+            {
+                dtl_DataListesi.Items.Add(product.UrunAdet + " ---- " + product.CategoryName);
             }
+
+
         }
     }
 }
